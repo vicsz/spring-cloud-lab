@@ -424,5 +424,4 @@ __Fetching config from server at: http://localhost:8888__
 In the case of the spring.application.name update, this should be reflected both the the Eureka service listings, and in the initial console initailzaition for Slot Machine Service.
 
 
-
-
+## 8 - **Bonus** Update the Config Server to use the Registry Service , and for the Slot Machine Service to identify the Config Server via Eureka
