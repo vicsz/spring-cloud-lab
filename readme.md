@@ -339,7 +339,7 @@ You should see the default fail back response of "? ? ?" in-lieu of a complete f
 
 Restart the Random Number Service. 
 
-Try the /spin endpoint again .. eventually it will reenable commeunication with the now health Random Number Service -- the default wait time is 5 seconds.
+Try the /spin endpoint again .. eventually it will re-enable communication with the now healthly Random Number Service -- the default wait time is 5 seconds.
 
 ## 6 - Create the Config Server
 ### 6.1 - Generate a Spring Boot Template from https://start.spring.io
