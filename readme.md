@@ -217,11 +217,11 @@ Addd the spring-cloud-version definition if needed:
 ```
 
 ### 4.2 - Update the code base 
-Add the **@EnableEurekaClient** annoation to both service's application class files .. i.e. : 
+Add the **@EnableDiscoveryClient** annoation to both service's application class files .. i.e. : 
 
 ```java
 @SpringBootApplication
-@EnableEurekaClient
+@EnableDiscoveryClient
 public class SlotMachineServiceApplication {
 ```
 Explicity set the spring application name property in the application properties file for each service :
@@ -291,7 +291,7 @@ Add the **@EnableCircuitBreaker** annotation to the SlotMachineServiceApplicatio
 
 ```java
 @SpringBootApplication
-@EnableEurekaClient
+@EnableDiscoveryClient
 @EnableCircuitBreaker
 public class SlotMachineServiceApplication {
 ```
@@ -320,7 +320,7 @@ $ ./mvnw spring-boot:run
 
 Terminate the Random Number Service via the command line (Ctrl-C).
 
-Attempt to call the /spin endpoint.
+Attempt to call the localhost:8081/spin endpoint on the Slot Machine Service.
 
 You should see the default fail back response of "? ? ?" in-lieu of a complete failure.
 
