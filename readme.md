@@ -1,4 +1,4 @@
-# Spring Cloud Lab
+# Spring Cloud Lab - Slot Machine Service
 
 A simple Spring Cloud "Slot Machine" :cherries: :cherries: :cherries: application, demoing cloud and microservice patterns.  
 
@@ -424,4 +424,6 @@ __Fetching config from server at: http://localhost:8888__
 In the case of the spring.application.name update, this should be reflected both the the Eureka service listings, and in the initial console initailzaition for Slot Machine Service.
 
 
-## 8 - **Bonus** Update the Config Server to use the Registry Service , and for the Slot Machine Service to identify the Config Server via Eureka
+## 8 - BONUS - Update the Config Server to use the Registry Service , and for the Slot Machine Service to identify the Config Server via Eureka
+
+## 9 - BONUS - Externalize the Slot Machine Values to the Config Server .. allow them to be dynamically updated without a Slot Machine Service update
