@@ -115,3 +115,36 @@ $ ./mvnw spring-boot:run
 ### 2.6 - Test the spin endpoint at localhost:8081/spin
 
 You should get a randomly generated slot machine response.
+
+## 3 - Create the Service Registry  
+### 3.1 - Generate the Spring Boot Template from https://start.spring.io
+Stick to the default settings, however update:
+- artifact name to service-registry
+- for dependencies add EurekaServer, Actuator 
+
+### 3.2 - Download the project folder into our spring-cloud-lab directory
+### 3.3 - Open the project by importing the generated pom.xml with your IDE of choice
+### 3.4 - Update the code base
+We need to add the **@EnableEurekaServer** annoation to the ServiceRegistryApplication class file 
+
+```java
+@SpringBootApplication
+@EnableEurekaServer
+public class ServiceRegistryApplication {
+```
+
+Update the **application.properties** file to turn-off self-registry and configure Euruka to use the standard Euraka port of 8761 instead of the Spring Boot default of 8080
+
+```properties
+server.port=8761 
+eureka.client.registerWithEureka=false
+eureka.client.fetchRegistry=false
+```
+### 3.5 - Run the application (from /spring-cloud-lab/service-registry)
+```sh
+$ ./mvnw spring-boot:run
+```
+
+### 3.6 - Open the Service Registry Eureka Dashboard at localhost:8761
+
+You should see the Eureka main page.
