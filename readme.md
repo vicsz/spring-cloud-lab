@@ -6,6 +6,7 @@ The lab consists of a number of interconntected components including:
 - A Slot Machine Service
 - A Random Number Service
 - A Service Registry (using Eureka)
+- A Configuration Setting Server 
 
 ## 0 - Initial setup
 ### Create the root project directory 
@@ -336,3 +337,38 @@ You should see the default fail back response of "? ? ?" in-lieu of a complete f
 Restart the Random Number Service. 
 
 Try the /spin endpoint again .. eventually it will reenable commeunication with the now health Random Number Service -- the default wait time is 5 seconds.
+
+## 6 - Create the Config Server
+### 6.1 - Generate a Spring Boot Template from https://start.spring.io
+Stick to the default settings, however update:
+- artifact name to config-server
+- for dependencies add Config Server, Actuator 
+
+### 6.2 - Download the project folder into our spring-cloud-lab directory
+### 6.3 - Open the project by importing the generated pom.xml with your IDE of choice
+### 6.4 - Update the code base
+We need to add the **@@EnableConfigServer** annoation to the ConfigServerApplication class file 
+
+```java
+@SpringBootApplication
+@@EnableConfigServer
+public class ConfigServerApplication {
+```
+
+Update the **application.properties** file to use the conventioal config port of 8888 instead of the Spring Boot default of 8888.
+Enable the *native* profile to load configuration from local files / class path instead of the the GIT default.
+Add an config server search location for /configs/application path.
+
+```properties
+server.port=8888
+spring.profiles.active=native
+spring.cloud.config.server.native.search-locations=classpath:/configs/{application}
+```
+### 6.5 - Run the application (from /spring-cloud-lab/config-server)
+```sh
+$ ./mvnw spring-boot:run
+```
+
+### 6.6 - Attempt to load default configuration settings for the Slot Machine Service via localhost:8888/slot-machine-serivce/default
+
+You should see an empty set of results .. 
