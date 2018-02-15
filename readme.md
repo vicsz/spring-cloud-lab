@@ -350,11 +350,11 @@ Stick to the default settings, however update:
 ### 6.2 - Download the project folder into our spring-cloud-lab directory
 ### 6.3 - Open the project by importing the generated pom.xml with your IDE of choice
 ### 6.4 - Update the code base
-We need to add the **@@EnableConfigServer** annoation to the ConfigServerApplication class file 
+We need to add the **@EnableConfigServer** annoation to the ConfigServerApplication class file 
 
 ```java
 @SpringBootApplication
-@@EnableConfigServer
+@EnableConfigServer
 public class ConfigServerApplication {
 ```
 
