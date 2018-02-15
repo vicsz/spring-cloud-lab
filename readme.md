@@ -364,6 +364,19 @@ server.port=8888
 spring.profiles.active=native
 spring.cloud.config.server.native.search-locations=classpath:/configs/{application}
 ```
+
+Add some random test settings to a Slot Machine Service *application.properties* file.
+
+In the */src/main/resources* folder of the Config Server .. create a *configs* and a *slot-machine-service* directory and add an *application.properties* file.
+i.e. /src/main/resources/configs/slot-machine-service/application.properties
+
+Add some settings:
+
+```properties
+    test.setting=some_value
+
+```
+
 ### 6.5 - Run the application (from /spring-cloud-lab/config-server)
 ```sh
 $ ./mvnw spring-boot:run
@@ -371,4 +384,4 @@ $ ./mvnw spring-boot:run
 
 ### 6.6 - Attempt to load default configuration settings for the Slot Machine Service via localhost:8888/slot-machine-serivce/default
 
-You should see an empty set of results .. 
+You should see our created slot-machine-service test settings.
