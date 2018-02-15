@@ -97,10 +97,7 @@ public class SlotMachineController {
 }
 ```
 
-**Implenent your own solution at the TODO mark .. or optionally scroll down for one possible solution .. **
-
-
-One solution to the spin implementaion: 
+__Implenent your own solution at the TODO mark or scroll down for one such solution__
 
 ```java
 return IntStream.range(0, 3).mapToObj(x-> {
