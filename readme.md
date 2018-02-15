@@ -78,7 +78,9 @@ This can be done by creating a SlotMachineController class file with:
 public class SlotMachineController {
 
     @Autowired
-    private RestTemplate restTemplate;
+    public SlotMachineController(RestTemplate restTemplate){
+        this.restTemplate = restTemplate;
+    }
 
     @RequestMapping
     public String spin(){
@@ -87,18 +89,36 @@ public class SlotMachineController {
         
         return "Cherry Cherry Cherry"; 
         //TODO update return statement to return 3 random slot machine symbols  
-        // using the below example usage of the Random Number Service .. numerous ways exist of doing this ! 
-        // EXAMPLE int randomNumber = restTemplate.getForObject("http://localhost:8080/randomNumber", Integer.class);
+        //using the below example usage of the Random Number Service .. numerous ways exist of doing this ! 
+        //int randomNumber = restTemplate.getForObject("http://localhost:8080/randomNumber", Integer.class);
     }
-    
-    @Bean
-    RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+ 
 }
 ```
 
-__Implenent your own solution at the TODO mark or scroll down for one such solution__
+Also add a RestTemplate bean to our SlotMachineServiceApplication class:
+
+```java
+public class SlotMachineServiceApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SlotMachineServiceApplication.class, args);
+    }
+    
+    @Bean
+    @LoadBalanced
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+}
+
+
+```
+
+
+
+__Remember to implement your own solution generate the random Slot result at the TODO mark or scroll down for one such solution__
 
 ```java
 return IntStream.range(0, 3).mapToObj(x-> {
