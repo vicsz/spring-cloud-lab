@@ -318,12 +318,12 @@ $ ./mvnw spring-boot:run
 
 ### 5.4 - Confirm Circuit Breaker functionality 
 
-Terminate the Random Number Service (Ctrl-C)
+Terminate the Random Number Service via the command line (Ctrl-C).
 
-Attempt the call the /spin endpoint 
+Attempt to call the /spin endpoint.
 
-You should see the default fail back response of "? ? ?" in lieu of a complete failure
+You should see the default fail back response of "? ? ?" in-lieu of a complete failure.
 
-Restart the Random Number Service 
+Restart the Random Number Service. 
 
-Try the /spin endpoint again .. eventually it will reenable commeunication with the now health Random Number Service -- the default wait time is 5seconds.
+Try the /spin endpoint again .. eventually it will reenable commeunication with the now health Random Number Service -- the default wait time is 5 seconds.
