@@ -247,4 +247,4 @@ You should see both the Random-Number-Service and Slot-Machine-Service listed un
 
 ### 4.5 - Test the spin endpoint at localhost:8081/spin
 
-You should get a randomly generated numberresponse. 
+You should get a randomly generated slot machine response.
