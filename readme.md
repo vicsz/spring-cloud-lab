@@ -1,12 +1,13 @@
 # Spring Cloud Lab - Slot Machine Service
 
-A simple Spring Cloud "Slot Machine" :cherries: :cherries: :cherries: application, demostraing common cloud and microservice patterns.  
+A simple Spring Cloud "Slot Machine" :cherries: :cherries: :cherries: application, demonstrating common cloud and microservice patterns.  
 
 The lab consists of a number of interconntected components including:
 - A Slot Machine Service
 - A Random Number Service
 - A Service Registry (using Eureka)
 - A Configuration Setting Server 
+- A Circuit Breaker implementation (using Hystrix)
 
 ## 0 - Initial setup
 ### Create the root project directory 
