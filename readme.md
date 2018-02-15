@@ -70,12 +70,20 @@ server.port=8081
 
 Implement a /spin endpoint that returns 3 random slot machine symbols. i.e. Cherry, Bar, Orange, Plum, etc
 
+For example some random String responses are: 
+- **Cherry Cherry Cherry**
+- **Bar Orange Plum**
+- **Orange Orange Cherry**
+
 This can be done by creating a SlotMachineController class file with:
 
 
 ```java
 @RestController
 public class SlotMachineController {
+
+    private RestTemplate restTemplate;
+    private static final String[] slotMachineSymbols = {"Cherry", "Bar", "Orange", "Plum"};
 
     @Autowired
     public SlotMachineController(RestTemplate restTemplate){
@@ -84,15 +92,11 @@ public class SlotMachineController {
 
     @RequestMapping
     public String spin(){
-
-        String[] slotMachineSymbols = {"Cherry", "Bar", "Orange", "Plum"};
-        
-        return "Cherry Cherry Cherry"; 
-        //TODO update return statement to return 3 random slot machine symbols  
-        //using the below example usage of the Random Number Service .. numerous ways exist of doing this ! 
-        //int randomNumber = restTemplate.getForObject("http://localhost:8080/randomNumber", Integer.class);
+        return "? ? ? "; //TODO implement me !
+        //Example Rest Call:
+        //restTemplate.getForObject("http://localhost:8080/randomNumber", Integer.class);
     }
- 
+
 }
 ```
 
@@ -106,7 +110,6 @@ public class SlotMachineServiceApplication {
     }
     
     @Bean
-    @LoadBalanced
     RestTemplate restTemplate() {
         return new RestTemplate();
     }
@@ -118,13 +121,19 @@ public class SlotMachineServiceApplication {
 
 
 
-__Remember to implement your own solution generate the random Slot result at the TODO mark or scroll down for one such solution__
+__Implement your own solution to generate the random Slot result at the TODO mark or scroll down for one such solution__
 
 ```java
-return IntStream.range(0, 3).mapToObj(x-> {
-            int randomNumber = restTemplate.getForObject("http://localhost:8080/randomNumber", Integer.class);
-            return slotMachineSymbols[Math.abs(randomNumber%slotMachineSymbols.length)];}
-        ).collect(Collectors.joining(" "));
+
+    @RequestMapping
+    public String spin(){
+        return "String.format("%s %s %s", getSingleSpinResult(), getSingleSpinResult(), getSingleSpinResult());"
+    }
+
+    private String getSingleSpinResult(){
+        int randomNumber = restTemplate.getForObject("http://random-number-service/randomNumber", Integer.class);
+        return slotMachineSymbols[Math.abs(randomNumber%slotMachineSymbols.length)];
+    }
 ```
 
 
@@ -217,22 +226,22 @@ Addd the spring-cloud-version definition if needed:
 ```
 
 ### 4.2 - Update the code base 
-Add the **@EnableDiscoveryClient** annoation to both service's application class files .. i.e. : 
+Add the **@EnableDiscoveryClient** annoation to both service's Application class files i.e. : 
 
 ```java
 @SpringBootApplication
 @EnableDiscoveryClient
 public class SlotMachineServiceApplication {
 ```
-Explicity set the spring application name property in the application properties file for each service :
+Explicity set the spring application name property in the **application.properties** files for each service :
 
-Random Number Service 
+**Random Number Service** 
 
 ```properties
 spring.application.name=random-number-service 
 ```
 
-Slot Machine Service
+**Slot Machine Service**
 
 ```properties
 spring.application.name=slot-machine-service 
@@ -264,7 +273,7 @@ $ ./mvnw spring-boot:run
 
 ### 4.4 - Confirm registration of both Services in the Eureka portal at localhost:8761
 
-You should see both the Random-Number-Service and Slot-Machine-Service listed under __Instances currently registered with Eureka__
+You should see both the Random-Number-Service and Slot-Machine-Service listed under __Instances currently registered with Eureka__.
 
 ### 4.5 - Test the spin endpoint at localhost:8081/spin
 
@@ -298,14 +307,14 @@ public class SlotMachineServiceApplication {
 
 Add the **@HystrixCommand(fallbackMethod = "defaultResult")** annotation the the spin method
 ```java
-@HystrixCommand(fallbackMethod = "defaultResult")
+@HystrixCommand(fallbackMethod = "defaultSpinResult")
 @RequestMapping
     public String spin(){
 ```
 
 Implement a default result method in the Slot Machine Controller
 ```java
-private String defaultResult() {
+private String defaultSpinResult() {
         return "? ? ?";
     }
 ```

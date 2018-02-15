@@ -6,14 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 @RestController
 public class SlotMachineController {
 
-
     private RestTemplate restTemplate;
+    private static final String[] slotMachineSymbols = {"Cherry", "Bar", "Orange", "Plum"};
 
     @Autowired
     public SlotMachineController(RestTemplate restTemplate){
@@ -21,19 +18,17 @@ public class SlotMachineController {
     }
 
     @RequestMapping
-    @HystrixCommand(fallbackMethod = "defaultResult")
+    @HystrixCommand(fallbackMethod = "defaultSpinResult")
     public String spin(){
-
-        String[] slotMachineSymbols = {"Cherry", "Bar", "Orange", "Plum"};
-
-        return IntStream.range(0, 3).mapToObj(x-> {
-            int randomNumber = restTemplate.getForObject("http://random-number-service/randomNumber", Integer.class);
-            return slotMachineSymbols[Math.abs(randomNumber%slotMachineSymbols.length)];}
-        ).collect(Collectors.joining(" "));
-
+        return String.format("%s %s %s", getSingleSpinResult(), getSingleSpinResult(), getSingleSpinResult());
     }
 
-    private String defaultResult() {
+    private String getSingleSpinResult(){
+        int randomNumber = restTemplate.getForObject("http://random-number-service/randomNumber", Integer.class);
+        return slotMachineSymbols[Math.abs(randomNumber%slotMachineSymbols.length)];
+    }
+
+    private String defaultSpinResult() {
         return "? ? ?";
     }
 
