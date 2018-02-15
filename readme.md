@@ -426,4 +426,4 @@ In the case of the spring.application.name update, this should be reflected both
 
 ## 8 - BONUS - Update the Config Server to use the Registry Service , and for the Slot Machine Service to identify the Config Server via Eureka
 
-## 9 - BONUS - Externalize the Slot Machine symbol values (defined in the Slot Machine controller) to the Config Server .. allow them to be dynamically updated without a Slot Machine Service update
+## 9 - BONUS - Externalize the Slot Machine symbol values (defined in the Slot Machine controller) to the Config Server .. allow them to be dynamically updated without a Slot Machine Service restart
