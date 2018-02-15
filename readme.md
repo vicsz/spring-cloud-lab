@@ -385,3 +385,44 @@ $ ./mvnw spring-boot:run
 ### 6.6 - Attempt to load default configuration settings for the Slot Machine Service via localhost:8888/slot-machine-serivce/default
 
 You should see our created slot-machine-service test settings.
+
+## 7 - Update the Slot Machine Services to use the Config Server
+
+### 7.1 - Update the services's pom.xml build script with requireed Config dependency.
+
+```xml
+    <dependencies>
+        <!-- exisitng dependencies are here -->
+        
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+    </dependencies>
+```
+
+### 7.2 - Override a Slot Machine Service setting using the Config Server
+
+In the *configs/slot-machine-service/application.properties* of the Config Server , add an existing Slot Machine Setting with a differnt value:
+
+```properties
+    spring.application.name=different-slot-machine-service
+
+```
+
+### 7.3 - Restart the Slot Machine Serivce 
+
+```sh
+$ ./mvnw spring-boot:run
+```
+
+### 7.4 - Confirm loading of the updated setting
+
+At the beginiing of the Slot Machine Service console initlization, you should see that the congifuration was loaded:
+__Fetching config from server at: http://localhost:8888__
+
+In the case of the spring.application.name update, this should be reflected both the the Eureka service listings, and in the initial console initailzaition for Slot Machine Service.
+
+
+
+
