@@ -16,10 +16,10 @@ Subsequent projects / services will be places within this folder as they are gen
 
 A number of seperate Java projects will be created. 
 
-To faciliate testing it is a good idea to keep a seperate console and IDE window open for each.
+To faciliate testing it is a good idea to keep a seperate console and IDE window open for each Java project.
 
 ## 1 - Create the Random Number Service  
-### 1.1 - Generate the Spring Boot Template from https://start.spring.io
+### 1.1 - Generate a Spring Boot Template from https://start.spring.io
 Stick to the default settings, however update:
 - artifact name to random-number-service
 - for dependencies add Web, Actuator  
@@ -53,7 +53,7 @@ $ ./mvnw spring-boot:run
 You should see a randomly generated number response. 
 
 ## 2 - Create the Slot Machine Service
-### 2.1 - Generate the Spring Boot Template from https://start.spring.io
+### 2.1 - Generate a Spring Boot Template from https://start.spring.io
 Stick to the default settings, however update:
 - artifact name to slot-machine-service
 - for dependencies add Web, Actuator  
@@ -62,7 +62,7 @@ Stick to the default settings, however update:
 ### 2.3 - Open the project by importing the generated pom.xml with your IDE of choice
 ### 2.4 - Update the code base
 
-Update the **application.properties** file to not have a conflicting port with out Random Number generator service. 
+Update the **application.properties** file to not have a conflicting port with our Random Number Service. 
 
 ```properties
 server.port=8081
@@ -85,9 +85,10 @@ public class SlotMachineController {
 
         String[] slotMachineSymbols = {"Cherry", "Bar", "Orange", "Plum"};
         
-        return "Cherry cherry cherry"; //TODO update this to return 3 random slot machine symbols using the below example usage of the Random Number Service .. numerous ways exist of doing this ! 
-     
-         // EXAMPLE int randomNumber = restTemplate.getForObject("http://localhost:8080/randomNumber", Integer.class);
+        return "Cherry Cherry Cherry"; 
+        //TODO update return statement to return 3 random slot machine symbols  
+        // using the below example usage of the Random Number Service .. numerous ways exist of doing this ! 
+        // EXAMPLE int randomNumber = restTemplate.getForObject("http://localhost:8080/randomNumber", Integer.class);
     }
     
     @Bean
@@ -117,7 +118,7 @@ $ ./mvnw spring-boot:run
 You should get a randomly generated slot machine response.
 
 ## 3 - Create the Service Registry  
-### 3.1 - Generate the Spring Boot Template from https://start.spring.io
+### 3.1 - Generate a Spring Boot Template from https://start.spring.io
 Stick to the default settings, however update:
 - artifact name to service-registry
 - for dependencies add EurekaServer, Actuator 
