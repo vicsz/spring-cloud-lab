@@ -26,7 +26,7 @@ Stick to the default settings, however update:
 
 ### 1.2 - Download the project folder into our spring-cloud-lab directory
 ### 1.3 - Open the project by importing the generated pom.xml with your IDE of choice
-### 1.4 - Update the Code Base 
+### 1.4 - Update the code base
 
 Implement a /randomNumber endpoint that returns a random integer. 
 
@@ -60,7 +60,7 @@ Stick to the default settings, however update:
 
 ### 2.2 - Download the project folder into our spring-cloud-lab directory
 ### 2.3 - Open the project by importing the generated pom.xml with your IDE of choice
-### 2.4 - Update the Code Base 
+### 2.4 - Update the code base
 
 Update the **application.properties** file to not have a conflicting port with out Random Number generator service. 
 
@@ -148,3 +148,103 @@ $ ./mvnw spring-boot:run
 ### 3.6 - Open the Service Registry Eureka Dashboard at localhost:8761
 
 You should see the Eureka main page.
+
+## 4 - Update the Random Number and Slot Machine Services to use the Service Registry  
+### 4.1 - Update both service's pom.xml build scripts with requireed Eureka dependencies. 
+
+Add the Eureka dependency:
+
+```xml
+    <dependencies>
+        <!-- exisitng dependencies are here -->
+        
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
+        </dependency>
+    </dependencies>
+```
+
+Ensure the Spring-Cloud dependency block is present:
+
+```xml
+</dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+<build>
+```
+
+Addd the spring-cloud-version definition if needed:
+
+```xml
+<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <spring-cloud.version>Edgware.SR2</spring-cloud.version>
+    </properties>
+```
+
+### 4.2 - Update the code base 
+Add the **@EnableEurekaClient** annoation to both service's application class files .. i.e. : 
+
+```java
+@SpringBootApplication
+@EnableEurekaClient
+public class SlotMachineServiceApplication {
+```
+Explicity set the spring application name property in the application properties file for each service :
+
+Random Number Service 
+
+```properties
+spring.application.name=random-number-service 
+```
+
+Slot Machine Service
+
+```properties
+spring.application.name=slot-machine-service 
+```
+
+Update the Slot Machine Service Rest Template code for auto discovery: 
+
+Add the **@LoadBalanced** annoation to the RestTemplate Bean 
+```java
+    @Bean
+    @LoadBalanced
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+```
+
+Update the RestTemplate call to use the service name (random-number-service) instead of address and port (localhost:8080). 
+
+```java
+restTemplate.getForObject("http://random-number-service/randomNumber"
+```
+
+### 4.3 - Restart both services 
+
+For both service directories .. kill the existing processes (Ctrl-C) and restart:
+```sh
+$ ./mvnw spring-boot:run
+```
+
+### 4.4 - Confirm registration of both Services in the Eureka portal at localhost:8761
+
+You should see both the Random-Number-Service and Slot-Machine-Service listed under __Instances currently registered with Eureka__
+
+### 4.5 - Test the spin endpoint at localhost:8081/spin
+
+You should get a randomly generated numberresponse. 
