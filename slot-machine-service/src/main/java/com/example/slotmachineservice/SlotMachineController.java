@@ -1,5 +1,6 @@
 package com.example.slotmachineservice;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,7 @@ public class SlotMachineController {
     private RestTemplate restTemplate;
 
     @RequestMapping
+    @HystrixCommand(fallbackMethod = "defaultResult")
     public String spin(){
 
         String[] slotMachineSymbols = {"Cherry", "Bar", "Orange", "Plum"};
@@ -26,6 +28,10 @@ public class SlotMachineController {
             return slotMachineSymbols[Math.abs(randomNumber%slotMachineSymbols.length)];}
         ).collect(Collectors.joining(" "));
 
+    }
+
+    private String defaultResult() {
+        return "? ? ?";
     }
 
     @Bean

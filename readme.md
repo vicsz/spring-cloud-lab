@@ -248,3 +248,61 @@ You should see both the Random-Number-Service and Slot-Machine-Service listed un
 ### 4.5 - Test the spin endpoint at localhost:8081/spin
 
 You should get a randomly generated slot machine response.
+
+## 5 - Enable a Circuit Breaker
+
+### 5.1 - Add the Hystrix dependency to the Slot Machine Service dependecy block in the pom.xml 
+
+```xml
+    <dependencies>
+        <!-- exisitng dependencies are here -->
+        
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix</artifactId>
+        </dependency>
+    </dependencies>
+```
+
+### 5.2 - Update the code base
+
+Add the **@EnableCircuitBreaker** annotation to the SlotMachineServiceApplication class
+
+```java
+@SpringBootApplication
+@EnableEurekaClient
+@EnableCircuitBreaker
+public class SlotMachineServiceApplication {
+```
+
+Add the **@HystrixCommand(fallbackMethod = "defaultResult")** annotation the the spin method
+```java
+@HystrixCommand(fallbackMethod = "defaultResult")
+@RequestMapping
+    public String spin(){
+```
+
+Implement a default result method in the Slot Machine Controller
+```java
+private String defaultResult() {
+        return "? ? ?";
+    }
+```
+
+### 5.3 - Restart the Slot Machine Serivce 
+
+```sh
+$ ./mvnw spring-boot:run
+```
+
+### 5.4 - Confirm Circuit Breaker functionality 
+
+Terminate the Random Number Service (Ctrl-C)
+
+Attempt the call the /spin endpoint 
+
+You should see the default fail back response of "? ? ?" in lieu of a complete failure
+
+Restart the Random Number Service 
+
+Try the /spin endpoint again .. eventually it will reenable commeunication with the now health Random Number Service -- the default wait time is 5seconds.
