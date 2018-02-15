@@ -1,5 +1,7 @@
 # Spring Cloud Lab - Slot Machine Service
 
+<img src="img/slot-machine.png" width="250">
+
 A simple Spring Cloud "Slot Machine" :cherries: :cherries: :cherries: application, demostraing common cloud and microservice patterns.  
 
 The lab consists of a number of interconntected components including:
