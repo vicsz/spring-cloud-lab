@@ -1,6 +1,6 @@
 # Spring Cloud Lab - Slot Machine Service
 
-A simple Spring Cloud "Slot Machine" :cherries: :cherries: :cherries: application, demoing cloud and microservice patterns.  
+A simple Spring Cloud "Slot Machine" :cherries: :cherries: :cherries: application, demostraing common cloud and microservice patterns.  
 
 The lab consists of a number of interconntected components including:
 - A Slot Machine Service
@@ -427,3 +427,5 @@ In the case of the spring.application.name update, this should be reflected both
 ## 8 - BONUS - Update the Config Server to use the Registry Service , and for the Slot Machine Service to identify the Config Server via Eureka
 
 ## 9 - BONUS - Externalize the Slot Machine symbol values (defined in the Slot Machine controller) to the Config Server .. allow them to be dynamically updated without a Slot Machine Service restart
+
+## 10 - BONUS - Implement a distributed tracing solution using Spring Cloud Sleuth
