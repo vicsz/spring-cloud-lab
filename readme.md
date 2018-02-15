@@ -237,7 +237,7 @@ Add the **@EnableDiscoveryClient** annoation to both service's *Application* cla
 @EnableDiscoveryClient
 public class SlotMachineServiceApplication {
 ```
-Explicity set the **spring.application.name** property in the **application.properties** files for each service :
+Explicity set the **spring.application.name** property in the **application.properties** files for each service:
 
 **Random Number Service** 
 
@@ -251,9 +251,9 @@ spring.application.name=random-number-service
 spring.application.name=slot-machine-service 
 ```
 
-Update the Slot Machine Service Rest Template code for auto discovery: 
+Update the Slot Machine Service RestTemplate code to enable Service Discovery: 
 
-Add the **@LoadBalanced** annoation to the RestTemplate Bean 
+Add the **@LoadBalanced** annoation to the RestTemplate Bean.
 ```java
     @Bean
     @LoadBalanced
@@ -283,7 +283,7 @@ You should see both the Random-Number-Service and Slot-Machine-Service listed un
 
 You should see a randomly generated slot machine response.
 
-## 5 - Enable a Circuit Breaker
+## 5 - Enable a Circuit Breaker implementation for the Slot Machine Service
 
 ### 5.1 - Add the Hystrix dependency to the Slot Machine Service dependecy block in the pom.xml 
 
