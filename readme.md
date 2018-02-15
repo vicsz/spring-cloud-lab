@@ -62,7 +62,7 @@ Stick to the default settings, however update:
 ### 2.3 - Open the project by importing the generated pom.xml with your IDE of choice
 ### 2.4 - Update the Code Base 
 
-Update the application.properties file to not have a conflicting port with out Random Number generator service. 
+Update the **application.properties** file to not have a conflicting port with out Random Number generator service. 
 
 ```properties
 server.port=8081
@@ -102,7 +102,7 @@ __Implenent your own solution at the TODO mark or scroll down for one such solut
 ```java
 return IntStream.range(0, 3).mapToObj(x-> {
             int randomNumber = restTemplate.getForObject("http://localhost:8080/randomNumber", Integer.class);
-            return slotMachineSymbols[Math.abs(randomNumber%slotMachineSymbols.length)]}
+            return slotMachineSymbols[Math.abs(randomNumber%slotMachineSymbols.length)];}
         ).collect(Collectors.joining(" "));
 ```
 
