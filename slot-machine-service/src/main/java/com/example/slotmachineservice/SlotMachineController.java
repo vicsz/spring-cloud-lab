@@ -1,6 +1,7 @@
 package com.example.slotmachineservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,13 +22,14 @@ public class SlotMachineController {
         String[] slotMachineSymbols = {"Cherry", "Bar", "Orange", "Plum"};
 
         return IntStream.range(0, 3).mapToObj(x-> {
-            int randomNumber = restTemplate.getForObject("http://localhost:8080/randomNumber", Integer.class);
+            int randomNumber = restTemplate.getForObject("http://random-number-service/randomNumber", Integer.class);
             return slotMachineSymbols[Math.abs(randomNumber%slotMachineSymbols.length)];}
         ).collect(Collectors.joining(" "));
 
     }
 
     @Bean
+    @LoadBalanced
     RestTemplate restTemplate() {
         return new RestTemplate();
     }
