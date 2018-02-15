@@ -20,7 +20,7 @@ Subsequent projects / services will be places within this folder as they are gen
 
 A number of seperate Java projects will be created. 
 
-To faciliate testing it is a good idea to keep a seperate console and IDE window open for each Java project.
+To faciliate testing, it is a good idea to keep a seperate console and IDE window open for each Java project.
 
 ## 1 - Create the Random Number Service  
 ### 1.1 - Generate a Spring Boot Template from https://start.spring.io
@@ -125,7 +125,7 @@ public class SlotMachineServiceApplication {
 
 
 
-__Implement your own solution to generate the random Slot result at the TODO mark (in *SlotMachineController*) .. or scroll down for one such solution.__
+__Implement your own solution to generate the random slot spin result at the TODO mark (in *SlotMachineController*) .. or scroll down for one such solution.__
 
 ```java
 
@@ -184,7 +184,7 @@ $ ./mvnw spring-boot:run
 You should see the Eureka main page.
 
 ## 4 - Update the Random Number and Slot Machine Services to use the Service Registry  
-### 4.1 - Update both service's pom.xml build scripts with requireed Eureka dependencies. 
+### 4.1 - Update both service's pom.xml build scripts with required Eureka dependencies. 
 
 Add the Eureka dependency:
 
@@ -268,7 +268,7 @@ Update the RestTemplate call to use the service name (random-number-service) ins
 restTemplate.getForObject("http://random-number-service/randomNumber"
 ```
 
-### 4.3 - Restart both services 
+### 4.3 - Restart both services (Slot Machine Service and Random Number Service)
 
 For both service directories .. kill the existing processes (Ctrl-C) and restart:
 ```sh
@@ -281,7 +281,7 @@ You should see both the Random-Number-Service and Slot-Machine-Service listed un
 
 ### 4.5 - Test the spin endpoint at localhost:8081/spin
 
-You should get a randomly generated slot machine response.
+You should see a randomly generated slot machine response.
 
 ## 5 - Enable a Circuit Breaker
 
