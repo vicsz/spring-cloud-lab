@@ -30,7 +30,7 @@ Stick to the default settings, however update:
 
 Implement a /randomNumber endpoint that returns a random integer. 
 
-This can be done by creating a RandomNumberController Java class file with:
+This can be done by creating a *RandomNumberController* Java class file with:
 
 
 ```java
@@ -70,12 +70,12 @@ server.port=8081
 
 Implement a /spin endpoint that returns 3 random slot machine symbols. i.e. Cherry, Bar, Orange, Plum, etc
 
-For example some random String responses are: 
+For example: 
 - **Cherry Cherry Cherry**
 - **Bar Orange Plum**
 - **Orange Orange Cherry**
 
-This can be done by creating a SlotMachineController class file with:
+This can be done by creating a *SlotMachineController* class file with:
 
 
 ```java
@@ -100,7 +100,7 @@ public class SlotMachineController {
 }
 ```
 
-Also add a RestTemplate bean to our SlotMachineServiceApplication class:
+Also add a RestTemplate Bean to our *SlotMachineServiceApplication* class:
 
 ```java
 public class SlotMachineServiceApplication {
@@ -121,18 +121,18 @@ public class SlotMachineServiceApplication {
 
 
 
-__Implement your own solution to generate the random Slot result at the TODO mark or scroll down for one such solution__
+__Implement your own solution to generate the random Slot result at the TODO mark (in *SlotMachineController*) .. or scroll down for one such solution.__
 
 ```java
 
     @RequestMapping
     public String spin(){
-        return "String.format("%s %s %s", getSingleSpinResult(), getSingleSpinResult(), getSingleSpinResult());"
+        return String.format("%s %s %s", getSingleSpinResult(), getSingleSpinResult(), getSingleSpinResult());
     }
 
     private String getSingleSpinResult(){
-        int randomNumber = restTemplate.getForObject("http://random-number-service/randomNumber", Integer.class);
-        return slotMachineSymbols[Math.abs(randomNumber%slotMachineSymbols.length)];
+        int randomNumber = restTemplate.getForObject("http://localhost:8080/randomNumber", Integer.class);
+        return slotMachineSymbols[Math.abs(randomNumber % slotMachineSymbols.length)];
     }
 ```
 
@@ -226,14 +226,14 @@ Addd the spring-cloud-version definition if needed:
 ```
 
 ### 4.2 - Update the code base 
-Add the **@EnableDiscoveryClient** annoation to both service's Application class files i.e. : 
+Add the **@EnableDiscoveryClient** annoation to both service's *Application* class files i.e. : 
 
 ```java
 @SpringBootApplication
 @EnableDiscoveryClient
 public class SlotMachineServiceApplication {
 ```
-Explicity set the spring application name property in the **application.properties** files for each service :
+Explicity set the **spring.application.name** property in the **application.properties** files for each service :
 
 **Random Number Service** 
 
