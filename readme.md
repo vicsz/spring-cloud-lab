@@ -130,15 +130,15 @@ __Implement your own solution to generate the random slot spin result at the TOD
 
 ```java
 
-    @RequestMapping
-    public String spin(){
-        return String.format("%s %s %s", getSingleSpinResult(), getSingleSpinResult(), getSingleSpinResult());
-    }
+@RequestMapping
+public String spin(){
+    return String.format("%s %s %s", getSingleSpinResult(), getSingleSpinResult(), getSingleSpinResult());
+}
 
-    private String getSingleSpinResult(){
-        int randomNumber = restTemplate.getForObject("http://localhost:8080/randomNumber", Integer.class);
-        return slotMachineSymbols[Math.abs(randomNumber % slotMachineSymbols.length)];
-    }
+private String getSingleSpinResult(){
+    int randomNumber = restTemplate.getForObject("http://localhost:8080/randomNumber", Integer.class);
+    return slotMachineSymbols[Math.abs(randomNumber % slotMachineSymbols.length)];
+}
 ```
 
 
@@ -190,14 +190,14 @@ You should see the Eureka main page.
 Add the Eureka dependency:
 
 ```xml
-    <dependencies>
-        <!-- exisitng dependencies are here -->
-        
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
-        </dependency>
-    </dependencies>
+<dependencies>
+    <!-- exisitng dependencies are here -->
+    
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-eureka</artifactId>
+    </dependency>
+</dependencies>
 ```
 
 Ensure the Spring-Cloud dependency block is present:
@@ -223,11 +223,11 @@ Addd the spring-cloud-version definition if needed:
 
 ```xml
 <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <spring-cloud.version>Edgware.SR2</spring-cloud.version>
-    </properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.8</java.version>
+    <spring-cloud.version>Edgware.SR2</spring-cloud.version>
+</properties>
 ```
 
 ### 4.2 - Update the code base 
@@ -256,11 +256,11 @@ Update the Slot Machine Service RestTemplate code to enable Service Discovery:
 
 Add the **@LoadBalanced** annoation to the RestTemplate Bean.
 ```java
-    @Bean
-    @LoadBalanced
-    RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+@Bean
+@LoadBalanced
+RestTemplate restTemplate() {
+    return new RestTemplate();
+}
 ```
 
 Update the RestTemplate call to use the service name (random-number-service) instead of address and port (localhost:8080). 
@@ -289,14 +289,14 @@ You should see a randomly generated slot machine response.
 ### 5.1 - Add the Hystrix dependency to the Slot Machine Service dependecy block in the pom.xml 
 
 ```xml
-    <dependencies>
-        <!-- exisitng dependencies are here -->
-        
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-hystrix</artifactId>
-        </dependency>
-    </dependencies>
+<dependencies>
+    <!-- exisitng dependencies are here -->
+    
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-hystrix</artifactId>
+    </dependency>
+</dependencies>
 ```
 
 ### 5.2 - Update the code base
@@ -320,8 +320,8 @@ Add the **@HystrixCommand(fallbackMethod = "defaultResult")** annotation the the
 Implement a default result method in the Slot Machine Controller
 ```java
 private String defaultSpinResult() {
-        return "? ? ?";
-    }
+    return "? ? ?";
+}
 ```
 
 ### 5.3 - Restart the Slot Machine Serivce 
@@ -377,8 +377,7 @@ i.e. /src/main/resources/configs/slot-machine-service/application.properties
 Add some settings:
 
 ```properties
-    test.setting=some_value
-
+test.setting=some_value
 ```
 
 ### 6.5 - Run the application (from /spring-cloud-lab/config-server)
@@ -395,14 +394,14 @@ You should see our created slot-machine-service test settings.
 ### 7.1 - Update the services's pom.xml build script with requireed Config dependency.
 
 ```xml
-    <dependencies>
-        <!-- exisitng dependencies are here -->
-        
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-    </dependencies>
+<dependencies>
+    <!-- exisitng dependencies are here -->
+    
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-config</artifactId>
+    </dependency>
+</dependencies>
 ```
 
 ### 7.2 - Override a Slot Machine Service setting using the Config Server
@@ -410,8 +409,7 @@ You should see our created slot-machine-service test settings.
 In the *configs/slot-machine-service/application.properties* of the Config Server , add an existing Slot Machine Setting with a differnt value:
 
 ```properties
-    spring.application.name=different-slot-machine-service
-
+spring.application.name=different-slot-machine-service
 ```
 
 ### 7.3 - Restart the Slot Machine Serivce 
