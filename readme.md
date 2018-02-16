@@ -385,7 +385,7 @@ test.setting=some_value
 $ ./mvnw spring-boot:run
 ```
 
-### 6.6 - Attempt to load default configuration settings for the Slot Machine Service via localhost:8888/slot-machine-serivce/default
+### 6.6 - Attempt to load default configuration settings for the Slot Machine Service via localhost:8888/slot-machine-service/default
 
 You should see our created slot-machine-service test settings.
 
