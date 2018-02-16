@@ -171,7 +171,7 @@ public class ServiceRegistryApplication {
 Update the **application.properties** file to turn-off self-registry and configure Euruka to use the standard Euraka port of 8761 instead of the Spring Boot default of 8080
 
 ```properties
-server.port=8761 
+server.port=8761
 eureka.client.registerWithEureka=false
 eureka.client.fetchRegistry=false
 ```
