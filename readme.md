@@ -140,7 +140,7 @@ private String getSingleSpinResult(){
 ```
 
 
-__BONUS__ - Add some additional code for returning 
+__BONUS__ - Add additional code to append winning status - for example "Cherry Cherry Cherry - You're a winner!!" 
 
 ### 2.5 - Run the application (from /spring-cloud-lab/slot-machine-service)
 ```sh
