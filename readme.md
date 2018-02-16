@@ -2,7 +2,7 @@
 
 <img src="img/slot-machine.png" width="250">
 
-A simple Spring Cloud "Slot Machine" :cherries: :cherries: :cherries: application, demonstrating common cloud and microservice patterns.  
+A simple Spring Cloud "Slot Machine" :cherries: :cherries: :cherries: application, demonstrating Spring Boot development and common cloud / microservice patterns.  
 
 The lab consists of a number of interconntected components including:
 - A Slot Machine Service
@@ -120,8 +120,6 @@ public class SlotMachineServiceApplication {
     }
 
 }
-
-
 ```
 
 
@@ -141,6 +139,8 @@ private String getSingleSpinResult(){
 }
 ```
 
+
+__BONUS__ - Add some additional code for returning 
 
 ### 2.5 - Run the application (from /spring-cloud-lab/slot-machine-service)
 ```sh
