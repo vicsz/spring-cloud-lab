@@ -10,6 +10,7 @@ The lab consists of a number of interconntected components including:
 - A Service Registry (using Eureka)
 - A Configuration Setting Server 
 - A Circuit Breaker implementation (using Hystrix)
+- A Hystrix Dashboard for monitoring applications
 
 ## 0 - Initial setup
 ### Create the root project directory 
@@ -426,9 +427,42 @@ __Fetching config from server at: http://localhost:8888__
 
 In the case of the spring.application.name update, this should be reflected both the the Eureka service listings, and in the initial console initailzaition for Slot Machine Service.
 
+## 8 - Create the Hystrix Dashboard Server
+### 8.1 - Generate a Spring Boot Template from https://start.spring.io
+Stick to the default settings, however update:
+- artifact name to hystrix-dashboard
+- for dependencies add Hystrix Dashboard, Actuator 
 
-## 8 - BONUS - Update the Config Server to use the Registry Service , and for the Slot Machine Service to identify the Config Server via Eureka
+### 8.2 - Download the project folder into our spring-cloud-lab directory
+### 8.3 - Open the project by importing the generated pom.xml with your IDE of choice
+### 8.4 - Update the code base
+We need to add the **@EnableHystrixDashboard** annoation to the HystrixDashboardApplication class file 
 
-## 9 - BONUS - Externalize the Slot Machine symbol values (defined in the Slot Machine controller) to the Config Server .. allow them to be dynamically updated without a Slot Machine Service restart
+```java
+@SpringBootApplication
+@EnableHystrixDashboard
+public class HystrixDashboardApplication {
+```
 
-## 10 - BONUS - Implement a distributed tracing solution using Spring Cloud Sleuth
+Update the **application.properties** file to use a differnt port instead of the Spring Boot default of 8888.
+
+```properties
+server.port=8083
+```
+
+### 8.5 - Run the application (from /spring-cloud-lab/hystrix-dashboard)
+```sh
+$ ./mvnw spring-boot:run
+```
+
+### 8.6 - Configure the Hystrix Dashboard at http://localhost:8083/hystrix 
+
+Add the Slot Machine Service Hystrix stream for monitoring : http://localhost:8081/hystrix.stream 
+
+### 8.7 - Make some Slot Machine Service /spin calls and monitor the usage in the Hystrix Dashboard
+
+## 9 - BONUS - Update the Config Server to use the Registry Service , and for the Slot Machine Service to identify the Config Server via Eureka
+
+## 10 - BONUS - Externalize the Slot Machine symbol values (defined in the Slot Machine controller) to the Config Server .. allow them to be dynamically updated without a Slot Machine Service restart
+
+## 11 - BONUS - Implement a distributed tracing solution using Spring Cloud Sleuth
