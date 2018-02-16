@@ -459,8 +459,14 @@ Add the Slot Machine Service Hystrix stream for monitoring : http://localhost:80
 
 ### 8.7 - Make some Slot Machine Service /spin calls and monitor the usage in the Hystrix Dashboard
 
-## 9 - BONUS - Update the Config Server to use the Registry Service , and for the Slot Machine Service to identify the Config Server via Eureka
+## 9 - BONUS - Externalize the Slot Machine symbol values (defined in the Slot Machine controller) 
 
-## 10 - BONUS - Externalize the Slot Machine symbol values (defined in the Slot Machine controller) to the Config Server .. allow them to be dynamically updated without a Slot Machine Service restart
+First in the the Slot Machine Service configuration in application.properties. 
+
+Then in the Config Server.
+
+Allow for Slot Machine symbol value updates without Slot Machine Service restarts (hint : RefreshScope).
+
+## 10 - BONUS - Update the Config Server to use the Registry Service , and for the Slot Machine Service to identify the Config Server via Eureka
 
 ## 11 - BONUS - Implement a distributed tracing solution using Spring Cloud Sleuth
