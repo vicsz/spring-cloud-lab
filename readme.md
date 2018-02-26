@@ -12,6 +12,40 @@ The lab consists of a number of interconntected components including:
 - A Circuit Breaker implementation (using Hystrix)
 - A Hystrix Dashboard for monitoring applications
 
+## Demo Requirements 
+
+### Access to Maven Repositories 
+
+If your computer has firewall restrictions, this may require updates to the following file: 
+
+_${user.home}/.m2/settings.xml_
+
+Consult your boss / lead if needed .. 
+
+### Maven installed and available on commandline 
+
+You can check by running _mvn_ from the commandline. 
+
+In-lieu of installing the Maven tool, you can run the Maven Wrapper .. though note that it requires non-firewalled access to pull down it's dependencies,
+
+```sh
+$ ./mvnw spring-boot:run
+```
+
+### Your Java IDE of choice .. 
+
+I recommend Intellij .. The Community addition is free. 
+
+## Demo Troubleshooting 
+
+### Timeout or connection issues during the build process 
+
+This is most likley caused by firewall issues on your computer (espeically likley with corporate provided laptops).  Your company has likely provided you with work arounds, probably involing firewall configuration in the _${user.home}/.m2/settings.xml_  .. Consult your boss. 
+
+### Port already in use 
+
+Something else is already using the specified port in the _application.properties_ file.  You can either terminate it, or change the port to something else in the properties file. Via a browser, you can check what is currently using the port. 
+
 ## 0 - Initial setup
 ### Create the root project directory 
 ```sh
@@ -50,7 +84,7 @@ public class RandomNumberController {
 ```
 ### 1.5 - Run the application (from /spring-cloud-lab/random-number-service)
 ```sh
-$ ./mvnw spring-boot:run
+$ mvn spring-boot:run
 ```
 
 ### 1.6 - Test the /randomNumber endpoint at localhost:8080/randomNumber
@@ -144,7 +178,7 @@ __BONUS__ - Add additional code to append winning status - for example "Cherry C
 
 ### 2.5 - Run the application (from /spring-cloud-lab/slot-machine-service)
 ```sh
-$ ./mvnw spring-boot:run
+$ mvn spring-boot:run
 ```
 
 ### 2.6 - Test the spin endpoint at localhost:8081/spin
@@ -177,7 +211,7 @@ eureka.client.fetchRegistry=false
 ```
 ### 3.5 - Run the application (from /spring-cloud-lab/service-registry)
 ```sh
-$ ./mvnw spring-boot:run
+$ mvn spring-boot:run
 ```
 
 ### 3.6 - Open the Service Registry Eureka Dashboard at localhost:8761
@@ -273,7 +307,7 @@ restTemplate.getForObject("http://random-number-service/randomNumber"
 
 For both service directories .. kill the existing processes (Ctrl-C) and restart:
 ```sh
-$ ./mvnw spring-boot:run
+$ mvn spring-boot:run
 ```
 
 ### 4.4 - Confirm registration of both Services in the Eureka portal at localhost:8761
@@ -327,7 +361,7 @@ private String defaultSpinResult() {
 ### 5.3 - Restart the Slot Machine Serivce 
 
 ```sh
-$ ./mvnw spring-boot:run
+$ mvn spring-boot:run
 ```
 
 ### 5.4 - Confirm Circuit Breaker functionality 
@@ -382,7 +416,7 @@ test.setting=some_value
 
 ### 6.5 - Run the application (from /spring-cloud-lab/config-server)
 ```sh
-$ ./mvnw spring-boot:run
+$ mvn spring-boot:run
 ```
 
 ### 6.6 - Attempt to load default configuration settings for the Slot Machine Service via localhost:8888/slot-machine-service/default
@@ -415,7 +449,7 @@ spring.application.name=different-slot-machine-service
 ### 7.3 - Restart the Slot Machine Serivce 
 
 ```sh
-$ ./mvnw spring-boot:run
+$ mvn spring-boot:run
 ```
 
 ### 7.4 - Confirm loading of the updated setting
@@ -450,7 +484,7 @@ server.port=8083
 
 ### 8.5 - Run the application (from /spring-cloud-lab/hystrix-dashboard)
 ```sh
-$ ./mvnw spring-boot:run
+$ mvn spring-boot:run
 ```
 
 ### 8.6 - Configure the Hystrix Dashboard at http://localhost:8083/hystrix 
