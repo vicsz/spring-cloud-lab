@@ -504,3 +504,11 @@ Allow for Slot Machine symbol value updates without Slot Machine Service restart
 ## 10 - BONUS - Update the Config Server to use the Registry Service , and for the Slot Machine Service to identify the Config Server via Eureka
 
 ## 11 - BONUS - Implement a distributed tracing solution using Spring Cloud Sleuth
+
+## 12 - BONUS - Add Integration Tests with Mocking and actual invokation of endpoints using a random port. 
+
+## 13 - BONUS - Add a Database compoment -- save each spin state, including the date. 
+
+Demo DB Migrations .. and DB Testing (Spock can be a good candidate here) 
+
+## 14 - BONUS - Secure the communication between the Random Number Service and the Slot Machine Service using Spring Security. 
