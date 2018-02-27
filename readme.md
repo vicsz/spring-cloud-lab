@@ -630,14 +630,42 @@ spring.cloud.config.discovery.service-id=config-server
 
 You will need to restart affected Services.  
 
-## 11 - BONUS - Implement a distributed tracing solution using Spring Cloud Sleuth
+## 11 - Simplify the Development process of the Slot Machine Service .. by automatically restarting the Service when a build happens.
+
+Currently everytime we make a code change, we require a restart of the Slot Machine Service for the changes to take effect. Using __spring-boot-devtools__ we can automated this process.
+
+### 11.1 - Add the __Devtools__ dependency to the Slot Machine Service pom.xml
+
+```xml
+<dependencies>
+    <!-- exisitng dependencies are here -->
+    
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+    </dependency>
+</dependencies>
+
+```
+
+### 11.2 - Verify the __Live Reloading__ works
+
+Restart the Slot Machine Service.
+
+Make some Random Slot Machine Service code changes .. Can be something as simple as a __System.out.println__ on the spin endpoint.
+
+Build the update code .. in Intellij this is "Build Project"
+
+Verifiy that the Slot Machine Service was automatically restarted (in console), and verify that your random changes have taken effect. 
 
 ## 12 - BONUS - Add Integration Tests with Mocking and actual invokation of endpoints using a random port. 
 
-## 13 - BONUS - Add a Database compoment -- save each spin state, including the date. 
-
-Demo DB Migrations .. and DB Testing (Spock can be a good candidate here) 
+## 13 - BONUS - Implement a distributed tracing solution using Spring Cloud Sleuth
 
 ## 14 - BONUS - Secure the communication between the Random Number Service and the Slot Machine Service using Spring Security. 
 
-## 15 - BONUS - Add Spring Boot Dev Tools to allow for automatic application restarts during development / code changes
+## 15 - BONUS - Add a Database compoment -- save each spin state, including the date. 
+
+Demo DB Migrations .. and DB Testing (Spock can be a good candidate here) 
+
+
