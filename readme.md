@@ -516,3 +516,5 @@ Allow for Slot Machine symbol value updates without Slot Machine Service restart
 Demo DB Migrations .. and DB Testing (Spock can be a good candidate here) 
 
 ## 14 - BONUS - Secure the communication between the Random Number Service and the Slot Machine Service using Spring Security. 
+
+## 15 - BONUS - Add Spring Boot Dev Tools to allow for automatic application restarts during development / code changes
