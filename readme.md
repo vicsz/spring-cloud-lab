@@ -553,7 +553,7 @@ management.security.enabled=false
 
 Note that for testing purposes this is fine .. but for production you will not want to disable security for critical actuator endpoints.
 
-### 9.5 - Verify the Slot Machine Controller is corretly getting updated symbol values with a restart 
+### 9.5 - Verify the Slot Machine Controller is corretly getting updated symbol values without a restart 
 
 Update the values in the Config Server. 
 
@@ -563,8 +563,72 @@ Call the /refresh endpoint on the Slot Machine Service.
 
 Call the /spin endpoint and verify that the new values are called.
 
+## 10 - Update the Config Server to use the Registry Service , and for the Slot Machine Service to identify the Config Server via Eureka
 
-## 10 - BONUS - Update the Config Server to use the Registry Service , and for the Slot Machine Service to identify the Config Server via Eureka
+By default, Spring Boot will look for the Configuration Server at localhost:8888 .. we want to change this so that our Service Registry determines tracks the URL, and correctly provides this information to the Slot Machine Service.
+
+### 10.1 - Change the Config Server port to a non-standard port address (in the __application.properties__ file)
+
+```properties
+server.port=8889
+```
+
+### 4.2 - Update Config Servers pom.xml build script with required Eureka dependency:
+
+Add the Eureka dependency:
+
+```xml
+<dependencies>
+    <!-- exisitng dependencies are here -->
+    
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-eureka</artifactId>
+    </dependency>
+</dependencies>
+```
+
+### 10.3 - Update the Config Server Code Base 
+
+Add the **@EnableDiscoveryClient** annoation in the *Application* class file i.e. : 
+
+```java
+@SpringBootApplication
+@EnableConfigServer
+@EnableDiscoveryClient
+public class ConfigServerApplication {
+```
+Explicity set the **spring.application.name** property in the **application.properties** file:
+
+```properties
+server.port=8889
+spring.application.name=config-server
+
+spring.profiles.active=native
+spring.cloud.config.server.native.search-locations=classpath:/configs/{application}
+```
+
+After a restart, you should know see the __config-service__ show up in the Service Registry at http://localhost:8761. 
+
+
+### 10.4 - Update the Slot Machine Code Base
+
+Configure the Service to load configuration from __config-server__. In the __application.properties__ file, add the spring.cloud.config.discovery.service-id property. 
+
+```properties
+server.port=8081
+spring.application.name=slot-machine-service
+
+management.security.enabled=false
+
+slot.machine.symbols=Cherry,Bar,Orange,Plum,Apple
+
+spring.cloud.config.discovery.service-id=config-server
+```
+
+### 10.5 - Verify the Slot Machine Controller is corretly getting updated symbol values
+
+You will need to restart affected Services.  
 
 ## 11 - BONUS - Implement a distributed tracing solution using Spring Cloud Sleuth
 
