@@ -497,13 +497,72 @@ Add the Slot Machine Service Hystrix stream for monitoring : http://localhost:80
 
 ### 8.7 - Make some Slot Machine Service /spin calls and monitor the usage in the Hystrix Dashboard
 
-## 9 - BONUS - Externalize the Slot Machine symbol values (defined in the Slot Machine controller) 
+## 9 - Externalize the Slot Machine symbol values (defined in the Slot Machine controller)
 
-First in the the Slot Machine Service configuration in application.properties. 
+What we want is to have the slot machine symbol values i.e. __bell cherry plum etc__ defined in properties files instead of hardcored in the source file.  
 
-Then in the Config Server.
+### 9.1 - Replace the inline setting of the slotMachineSymbols array in the SlotMachineController with loading from the __application.properties__ file. 
 
-Allow for Slot Machine symbol value updates without Slot Machine Service restarts (hint : RefreshScope).
+
+```java 
+@Value("${slot.machine.symbols}")
+private String[] slotMachineSymbols;
+
+```   
+
+### 9.2 - Define the new possible slot machine symbol values in the Slot Machine Controller __application.properties__ file:
+
+```properties
+slot.machine.symbols=Cherry,Bar,Orange,Plum,Apple
+```
+
+### 9.3 - Verify the new implemention is working .. 
+
+### 9.4 - Define a different set of possible slot machine symbol values in the Slot Machine Controller __application.properties__ file in the Config Server:
+
+```properties
+slot.machine.symbols=Cherry,Bar,Orange,Plum,Apple,7,Bell
+```
+
+### 9.5 - Verify the Slot Machine Controller is getting it's symbol values from the Config Server
+
+You will need to restart both the Slot Machine Service and the Config Server
+
+### 9.6 - Allow for updates of these symbol values in the Slot Machine Service without restarting the Slot Machine Service
+
+You will need to add __@RefreshScope__ to the SlotMachineController :
+
+```java
+@RestController
+@RefreshScope
+public class SlotMachineController {
+```
+
+Note that this code change will not automatically refresh the __context__.  We still need to tell the application to refresh it's variables. This is accomplished via the __/refresh__ endpoint.  Make a Post call to this endpoint (via curl), to force the application to redownload it's variables. Note that a browser call won't work by default as it's a __Get__ call (in which case you will see a __Method Not Allowed__ error).
+
+```sh
+$ curl -X POST http://localhost:8081/refresh 
+```
+
+You will get a 401 unauthorized error .. the /refresh endpoint is by default locked-down .. To disable it, at the following to the Slot Machine Controller __application.properties__:
+
+```properties
+management.security.enabled=false
+
+``` 
+
+Note that for testing purposes this is fine .. but for production you will not want to disable security for critical actuator endpoints.
+
+### 9.5 - Verify the Slot Machine Controller is corretly getting updated symbol values with a restart 
+
+Update the values in the Config Server. 
+
+Restart the Config Server.
+
+Call the /refresh endpoint on the Slot Machine Service.
+
+Call the /spin endpoint and verify that the new values are called.
+
 
 ## 10 - BONUS - Update the Config Server to use the Registry Service , and for the Slot Machine Service to identify the Config Server via Eureka
 
