@@ -46,6 +46,10 @@ This is most likley caused by firewall issues on your computer (espeically likle
 
 Something else is already using the specified port in the _application.properties_ file.  You can either terminate it, or change the port to something else in the properties file. Via a browser, you can check what is currently using the port. 
 
+### Project is not opening correctly in your IDE (including jav files are not accessible)
+
+Ensure that your are __importing__ the project via Maven Pom.xml ,  instead of just opening files in your IDE.  Importing will ensure that the IDE correctly configured the project for Java Development.  Using Eclipse , you will need to open up the Maven subcategory when importing the project. 
+
 ## 0 - Initial setup
 ### Create the root project directory 
 ```sh
