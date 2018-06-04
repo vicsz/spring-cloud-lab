@@ -34,7 +34,7 @@ $ ./mvnw spring-boot:run
 
 ### Your Java IDE of choice .. 
 
-I recommend Intellij .. The Community addition is free. 
+I recommend Intellij .. The Community edition is free. 
 
 ## Demo Troubleshooting 
 
